@@ -1,0 +1,35 @@
+[project]
+name = "cybersecurity-news-frontend"
+version = "1.0.0"
+description = "Streamlit frontend for cybersecurity news aggregation"
+requires-python = ">=3.10"
+authors = [
+    {name = "Jorge Alvarez"}
+]
+
+dependencies = [
+    # UI Framework
+    "streamlit>=1.29.0",
+    
+    # HTTP Client
+    "requests>=2.31.0",
+    
+    # Environment Configuration
+    "python-dotenv>=1.0.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=7.0.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.black]
+line-length = 120
+target-version = ['py310']
+
