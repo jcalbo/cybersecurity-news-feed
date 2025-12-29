@@ -54,7 +54,7 @@ A real-time cybersecurity news aggregator powered by **MCP (Model Context Protoc
 
 - Python 3.10+
 - Elasticsearch 8.x running on port 9200
-- pip or uv package manager
+- **uv** package manager ([Install uv](https://docs.astral.sh/uv/getting-started/installation/))
 
 ### 1. Start Elasticsearch (if not running)
 
@@ -72,15 +72,15 @@ docker run -d \
 ```bash
 cd backend
 
-# Install dependencies
-pip install -r requirements.txt
+# Install dependencies with uv
+uv sync
 
 # Configure environment (optional)
 cp env.example .env
 # Edit .env if needed
 
 # Run backend server
-python3 mcp_server.py
+uv run python mcp_server.py
 ```
 
 The MCP server will start on `http://localhost:8000`
@@ -92,18 +92,30 @@ In a new terminal:
 ```bash
 cd frontend
 
-# Install dependencies
-pip install -r requirements.txt
+# Install dependencies with uv
+uv sync
 
 # Configure environment (optional)
 cp env.example .env
 # Edit .env if needed
 
 # Run frontend
-streamlit run app.py
+uv run streamlit run app.py
 ```
 
 The frontend will open in your browser at `http://localhost:8501`
+
+## ⚡ Why UV?
+
+This project uses [**uv**](https://docs.astral.sh/uv/) for dependency management:
+
+- **10-100x faster** than pip - installs in seconds instead of minutes
+- **Modern Python standard** - uses `pyproject.toml` (PEP 621)
+- **Deterministic builds** - lock files ensure reproducible installations
+- **Simple workflow** - one command (`uv sync`) replaces multiple pip commands
+- **Virtual environment management** - automatically creates and manages `.venv`
+
+For detailed UV usage, see [`UV_GUIDE.md`](UV_GUIDE.md).
 
 ## 🛠️ Tech Stack
 
@@ -119,6 +131,10 @@ The frontend will open in your browser at `http://localhost:8501`
 - **Streamlit** - Web UI framework
 - **requests** - HTTP client for MCP communication
 
+### Development
+- **uv** - Fast Python package manager and resolver
+- **pyproject.toml** - Modern Python dependency management (PEP 621)
+
 ### Infrastructure
 - **Elasticsearch** 8.15.2 - Document store and search engine
 
@@ -131,13 +147,13 @@ cybersecurity-news-feed/
 │   ├── mcp_server.py          # Main MCP server with tools
 │   ├── elasticsearch_client.py # Elasticsearch integration
 │   ├── test_backend.py        # Backend integration tests
-│   ├── requirements.txt       # Backend dependencies
+│   ├── pyproject.toml         # Backend dependencies (uv)
 │   └── env.example            # Environment configuration template
 │
 ├── frontend/                   # Streamlit Frontend
 │   ├── app.py                 # Streamlit UI application
 │   ├── mcp_client.py          # MCP HTTP client
-│   ├── requirements.txt       # Frontend dependencies
+│   ├── pyproject.toml         # Frontend dependencies (uv)
 │   └── env.example            # Environment configuration template
 │
 ├── demo/                       # Demo videos
@@ -223,7 +239,7 @@ Get statistics about stored news in Elasticsearch.
 
 ```bash
 cd backend
-python3 test_backend.py
+uv run python test_backend.py
 ```
 
 This will test:
@@ -269,8 +285,30 @@ This will test:
 
 ## 🐳 Docker Deployment (Coming Soon)
 
-The application is structured for easy containerization:
+The application is structured for easy containerization using **uv** for fast builds:
 
+### Example Backend Dockerfile
+```dockerfile
+FROM python:3.12-slim
+
+# Install uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
+
+WORKDIR /app
+
+# Copy dependency files
+COPY pyproject.toml ./
+
+# Install dependencies
+RUN uv sync --frozen --no-dev
+
+# Copy application
+COPY . .
+
+CMD ["uv", "run", "python", "mcp_server.py"]
+```
+
+### Docker Compose
 ```bash
 # Build and run all services
 docker-compose up -d
@@ -289,6 +327,22 @@ docker-compose up frontend      # Port 8501
 - Use HTTPS for frontend-backend communication in production
 
 ## 📝 Development
+
+### Adding New Dependencies
+
+```bash
+# Backend dependency
+cd backend
+uv add <package-name>
+
+# Frontend dependency
+cd frontend
+uv add <package-name>
+
+# Dev dependency (e.g., testing tools)
+cd backend
+uv add --dev pytest
+```
 
 ### Adding New RSS Sources
 
@@ -335,10 +389,12 @@ MIT License - feel free to use this project for your own purposes.
 
 ## 📚 Additional Resources
 
-- [FastMCP Documentation](https://gofastmcp.com)
-- [Elasticsearch Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
-- [Streamlit Documentation](https://docs.streamlit.io)
-- [Model Context Protocol](https://modelcontextprotocol.io)
+- [UV Documentation](https://docs.astral.sh/uv/) - Fast Python package manager
+- [FastMCP Documentation](https://gofastmcp.com) - MCP server framework
+- [Elasticsearch Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html) - Search engine
+- [Streamlit Documentation](https://docs.streamlit.io) - UI framework
+- [Model Context Protocol](https://modelcontextprotocol.io) - MCP specification
+- [UV_GUIDE.md](UV_GUIDE.md) - Detailed UV usage guide for this project
 
 ---
 

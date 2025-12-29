@@ -54,11 +54,11 @@ docker run -d \
 ```bash
 cd /home/jorge/Desktop/jalvarez/cybersecurity-news-feed/backend
 
-# Install dependencies (if not already installed)
-pip install -r requirements.txt
+# Install dependencies with uv
+uv sync
 
 # Start MCP server
-python3 mcp_server.py
+uv run python mcp_server.py
 ```
 
 Expected output:
@@ -76,11 +76,11 @@ Expected output:
 ```bash
 cd /home/jorge/Desktop/jalvarez/cybersecurity-news-feed/frontend
 
-# Install dependencies (if not already installed)
-pip install -r requirements.txt
+# Install dependencies with uv
+uv sync
 
 # Start Streamlit app
-streamlit run app.py
+uv run streamlit run app.py
 ```
 
 The app will open in your browser at `http://localhost:8501`
@@ -92,7 +92,7 @@ The app will open in your browser at `http://localhost:8501`
 ### Test Backend
 ```bash
 cd backend
-python3 test_backend.py
+uv run python test_backend.py
 ```
 
 Expected: 3/4 tests should pass (Elasticsearch, RSS, Storage)
@@ -113,13 +113,15 @@ cybersecurity-news-feed/
 │   ├── mcp_server.py          # MCP server with tools
 │   ├── elasticsearch_client.py # ES integration
 │   ├── test_backend.py        # Tests
-│   ├── requirements.txt       # Dependencies
+│   ├── pyproject.toml         # Dependencies (uv)
+│   ├── .venv/                 # Virtual environment
 │   └── env.example            # Config template
 │
 ├── frontend/                   # ← NEW: Frontend service
 │   ├── app.py                 # Streamlit UI
 │   ├── mcp_client.py          # MCP client
-│   ├── requirements.txt       # Dependencies
+│   ├── pyproject.toml         # Dependencies (uv)
+│   ├── .venv/                 # Virtual environment
 │   └── env.example            # Config template
 │
 ├── app.py                      # ← OLD: Original app (kept for reference)
