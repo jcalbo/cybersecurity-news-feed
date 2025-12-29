@@ -1,0 +1,14 @@
+[project]
+name = "rss-streamlit"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "aiohttp>=3.13.2",
+    "fastmcp>=2.14.1",
+    "feedparser>=6.0.12",
+    "pydantic>=2.12.5",
+    "streamlit>=1.52.1",
+    "watchdog>=6.0.0",
+]

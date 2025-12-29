@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "cybersecurity-news": {
+      "command": "uv",
+      "args": [
+        "run",
+        "python3",
+        "/home/jorge/Desktop/jalvarez/cybersecurity-news-feed/mcp_server.py"
+      ]
+    }
+  }
+}
+
