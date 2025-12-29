@@ -1,0 +1,11 @@
+# Streamlit Frontend Requirements
+
+# UI Framework
+streamlit>=1.29.0
+
+# HTTP Client
+requests>=2.31.0
+
+# Environment Configuration
+python-dotenv>=1.0.0
+
