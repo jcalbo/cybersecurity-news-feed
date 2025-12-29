@@ -280,7 +280,5 @@ async def list_sources(params: ListSourcesInput) -> str:
 
 
 if __name__ == "__main__":
-#    mcp.run(transport="sse")
-    mcp.run(transport="stdio")
-    
-
+    # Use SSE transport for HTTP communication with frontend
+    mcp.run(transport="sse")

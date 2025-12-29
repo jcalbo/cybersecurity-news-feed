@@ -3,10 +3,10 @@ from datetime import datetime
 from typing import List, Dict
 
 import streamlit as st
-from mcp_client import get_mcp_client
+from api_client import get_api_client
 
 # Configuration
-MCP_SERVER_URL = os.getenv("MCP_SERVER_URL", "http://localhost:8000")
+API_SERVER_URL = os.getenv("API_SERVER_URL", "http://localhost:8000")
 
 # Page configuration
 st.set_page_config(
@@ -70,33 +70,18 @@ def display_news_item(item: Dict):
     st.markdown("---")
 
 
-def display_connection_status(mcp_client):
-    """Display MCP server connection status."""
+def display_connection_status(api_client):
+    """Display API server connection status."""
     with st.sidebar:
         st.subheader("🔌 Connection Status")
         
-        is_healthy = mcp_client.health_check()
+        is_healthy = api_client.health_check()
         
         if is_healthy:
-            st.success("✅ Connected to MCP Server")
+            st.success("✅ Connected to Backend API")
         else:
-            st.error("❌ Cannot connect to MCP Server")
-            st.info(f"Server URL: {MCP_SERVER_URL}")
-            
-        # Get Elasticsearch stats
-        try:
-            stats = mcp_client.get_elasticsearch_stats()
-            if "error" not in stats:
-                st.subheader("📊 Elasticsearch Stats")
-                st.metric("Total Documents", stats.get("total_documents", 0))
-                
-                latest_fetch = stats.get("latest_fetch")
-                if latest_fetch:
-                    st.text(f"Last fetch: {format_time_ago(latest_fetch)}")
-                else:
-                    st.text("No data fetched yet")
-        except Exception as e:
-            st.warning(f"Could not get ES stats: {e}")
+            st.error("❌ Cannot connect to Backend API")
+            st.info(f"Server URL: {API_SERVER_URL}")
 
 
 def main():
@@ -104,13 +89,13 @@ def main():
     
     # Header
     st.title("🔒 Cybersecurity News Feed")
-    st.markdown("**Powered by MCP Server & Elasticsearch**")
+    st.markdown("**Real-time Cybersecurity News Aggregator**")
     
-    # Initialize MCP client
-    mcp_client = get_mcp_client(MCP_SERVER_URL)
+    # Initialize API client
+    api_client = get_api_client(API_SERVER_URL)
     
     # Display connection status
-    display_connection_status(mcp_client)
+    display_connection_status(api_client)
     
     # Sidebar - Filters
     with st.sidebar:
@@ -133,7 +118,7 @@ def main():
         }
         
         # Get available sources
-        sources_result = mcp_client.list_sources()
+        sources_result = api_client.list_sources()
         available_sources = []
         
         if "error" not in sources_result and "sources" in sources_result:
@@ -176,8 +161,8 @@ def main():
             st.rerun()
     
     # Fetch news
-    with st.spinner("Fetching news from MCP server..."):
-        result = mcp_client.get_news(
+    with st.spinner("Fetching news from backend API..."):
+        result = api_client.get_news(
             hours=time_map[time_filter],
             sources=selected_sources if selected_sources else None,
             search=search_term if search_term else None,
@@ -187,7 +172,7 @@ def main():
     # Handle errors
     if "error" in result:
         st.error(f"❌ Error fetching news: {result['error']}")
-        st.info("💡 Make sure the MCP server is running on http://localhost:8000")
+        st.info("💡 Make sure the backend server is running on http://localhost:8000")
         return
     
     # Get news items
@@ -236,7 +221,7 @@ def main():
     st.markdown("---")
     st.markdown(
         f"<div style='text-align: center; color: gray;'>"
-        f"🔒 Cybersecurity News Feed via MCP Server | "
+        f"🔒 Cybersecurity News Feed | "
         f"Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
         f"</div>",
         unsafe_allow_html=True
