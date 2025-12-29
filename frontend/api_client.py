@@ -112,3 +112,4 @@ def get_api_client(base_url: str = "http://localhost:8000") -> NewsAPIClient:
     
     return _api_client
 
+
