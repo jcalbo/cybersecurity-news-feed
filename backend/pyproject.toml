@@ -1,0 +1,46 @@
+[project]
+name = "cybersecurity-news-backend"
+version = "1.0.0"
+description = "MCP Server backend for cybersecurity news aggregation"
+requires-python = ">=3.10"
+authors = [
+    {name = "Jorge Alvarez"}
+]
+
+dependencies = [
+    # MCP Framework
+    "fastmcp>=0.2.0",
+    
+    # Web & Async
+    "aiohttp>=3.9.0",
+    "uvicorn>=0.24.0",
+    
+    # RSS Feed Parsing
+    "feedparser>=6.0.10",
+    
+    # Elasticsearch
+    "elasticsearch==8.15.0",
+    
+    # Data Validation
+    "pydantic>=2.5.0",
+    
+    # Environment Configuration
+    "python-dotenv>=1.0.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.black]
+line-length = 120
+target-version = ['py310']
+
