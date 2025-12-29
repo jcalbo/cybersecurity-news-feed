@@ -1,7 +1,7 @@
-# 🔒 Cybersecurity News Feed
+# 🔒 Basic Cybersecurity News Feed
 
 A real-time cybersecurity news aggregator powered by **MCP (Model Context Protocol)** server, **Streamlit** frontend, and **Elasticsearch** for persistence.
-
+([based on the J. Alvarez POC](https://github.com/jalvarezz13/cybersecurity-news-feed/))
 ## 🌟 Features
 
 - **Multi-Source Aggregation**: Fetches news from 5 trusted cybersecurity sources
@@ -376,9 +376,9 @@ CACHE_DURATION_MINUTES=30  # Change to desired minutes
 
 MIT License - feel free to use this project for your own purposes.
 
-## 👤 Author
+## 👤 Authors
 
-**Jorge Alvarez**
+**J. Calbo + J. Alvarez**
 
 ## 🙏 Acknowledgments
 
