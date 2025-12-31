@@ -1,4 +1,4 @@
-# 🔒 Basic Cybersecurity News Feed
+# Basic Cybersecurity News Feed
 
 A real-time cybersecurity news aggregator powered by **MCP (Model Context Protocol)** server, **Streamlit** frontend, and **Elasticsearch** for persistence.
 ([based on the J. Alvarez POC](https://github.com/jalvarezz13/cybersecurity-news-feed/))
