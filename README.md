@@ -2,7 +2,7 @@
 
 A real-time cybersecurity news aggregator powered by **MCP (Model Context Protocol)** server, **Streamlit** frontend, and **Elasticsearch** for persistence.
 ([based on the J. Alvarez POC](https://github.com/jalvarezz13/cybersecurity-news-feed/))
-## 🌟 Features
+## Features
 
 - **Multi-Source Aggregation**: Fetches news from 5 trusted cybersecurity sources
 - **MCP Server Backend**: RESTful API following Model Context Protocol with SSE support
@@ -20,7 +20,7 @@ A real-time cybersecurity news aggregator powered by **MCP (Model Context Protoc
 - **StepSecurity** - Software supply chain security news
 - **ReversingLabs** - Threat intelligence and malware analysis
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 ┌─────────────────┐
@@ -48,7 +48,7 @@ A real-time cybersecurity news aggregator powered by **MCP (Model Context Protoc
 └─────────────────┘
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -105,7 +105,7 @@ uv run streamlit run app.py
 
 The frontend will open in your browser at `http://localhost:8501`
 
-## ⚡ Why UV?
+## UV
 
 This project uses [**uv**](https://docs.astral.sh/uv/) for dependency management:
 
@@ -117,7 +117,7 @@ This project uses [**uv**](https://docs.astral.sh/uv/) for dependency management
 
 For detailed UV usage, see [`UV_GUIDE.md`](UV_GUIDE.md).
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Backend
 - **FastMCP** - MCP server framework
@@ -138,7 +138,7 @@ For detailed UV usage, see [`UV_GUIDE.md`](UV_GUIDE.md).
 ### Infrastructure
 - **Elasticsearch** 8.15.2 - Document store and search engine
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 cybersecurity-news-feed/
@@ -164,7 +164,7 @@ cybersecurity-news-feed/
 └── README.md                  # This file
 ```
 
-## 🔧 Configuration
+## Configuration
 
 ### Backend Environment Variables
 
@@ -196,7 +196,7 @@ STREAMLIT_PORT=8501
 REQUEST_TIMEOUT=60
 ```
 
-## 📡 MCP Server API
+## MCP Server API
 
 The backend provides three MCP tools:
 
@@ -233,7 +233,7 @@ Get statistics about stored news in Elasticsearch.
 
 **Returns:** JSON with document count, last fetch time, and configuration.
 
-## 🧪 Testing
+## Testing
 
 ### Test Backend
 
@@ -264,7 +264,7 @@ This will test:
 3. **Test Frontend:**
    Open http://localhost:8501 in your browser
 
-## 📊 Features in Detail
+## Features in Detail
 
 ### Frontend Features
 - **Time Filtering**: Last 12h, 24h, 48h, week, or all time
@@ -319,14 +319,13 @@ docker-compose up backend       # Port 8000
 docker-compose up frontend      # Port 8501
 ```
 
-## 🔐 Security Considerations
+## Security Considerations
 
-- The Elasticsearch instance in this setup has security disabled for development
-- For production, enable X-Pack security and use authentication
+- For production, we should enable X-Pack security and use authentication
 - Configure firewalls to restrict access to internal services
 - Use HTTPS for frontend-backend communication in production
 
-## 📝 Development
+## Development
 
 ### Adding New Dependencies
 
@@ -364,30 +363,11 @@ Edit `backend/.env`:
 CACHE_DURATION_MINUTES=30  # Change to desired minutes
 ```
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📜 License
-
-MIT License - feel free to use this project for your own purposes.
-
-## 👤 Authors
+## Authors
 
 **J. Calbo + J. Alvarez**
 
-## 🙏 Acknowledgments
-
-- FastMCP team for the excellent MCP framework
-- Elasticsearch for powerful search capabilities
-- Streamlit for the intuitive UI framework
-- All the cybersecurity news sources for their valuable content
-
-## 📚 Additional Resources
+## Additional Resources
 
 - [UV Documentation](https://docs.astral.sh/uv/) - Fast Python package manager
 - [FastMCP Documentation](https://gofastmcp.com) - MCP server framework
@@ -398,4 +378,3 @@ MIT License - feel free to use this project for your own purposes.
 
 ---
 
-**Made with ❤️ for the cybersecurity community**
